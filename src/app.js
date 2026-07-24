@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
+import router from "./routes/router.js";
 
 dotenv.config();
 
@@ -18,9 +19,15 @@ app.get("/", (req, res) => {
         message: "Data Governance API Running"
     });
 });
+app.use("/api",router)
+app.use((err, req, res, next) => {
+    console.error("Multer Error:", err);
 
-const PORT = process.env.PORT || 5500;
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    res.status(500).json({
+        success: false,
+        message: err.message,
+        stack: err.stack
+    });
 });
+
+export default app;

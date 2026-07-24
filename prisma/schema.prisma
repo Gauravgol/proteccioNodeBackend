@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -6,4 +5,47 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Dataset {
+  id           String   @id @default(cuid())
+  filename     String
+  fileType     String
+  rowCount     Int
+  columnCount  Int
+
+  qualityScore Float?
+  trustScore   Float?
+  valueScore   Float?
+
+  uploadedAt   DateTime @default(now())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  columns      DatasetColumn[]
+  usages       DatasetUsage[]
+}
+
+model DatasetColumn {
+  id               String   @id @default(uuid())
+
+  datasetId        String
+  dataset          Dataset  @relation(fields: [datasetId], references: [id], onDelete: Cascade)
+
+  columnName       String
+  dataType         String
+
+  classification   String   @default("UNKNOWN")
+
+  missingPercent   Float    @default(0)
+  invalidPercent   Float    @default(0)
+}
+
+model DatasetUsage {
+  id          String   @id @default(uuid())
+
+  datasetId   String
+  dataset     Dataset  @relation(fields: [datasetId], references: [id], onDelete: Cascade)
+
+  viewedAt    DateTime @default(now())
 }
