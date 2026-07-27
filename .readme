@@ -1,0 +1,140 @@
+# Data Governance Dashboard - Backend
+
+Backend service for the **Data Governance Dashboard**, built with **Node.js**, **Express.js**, **Prisma ORM**, and **PostgreSQL**. It provides REST APIs to upload datasets, generate dataset profiles, calculate governance scores, and expose analytics for the frontend.
+
+---
+
+## Features
+
+- Upload CSV and Excel datasets
+- Automatic dataset profiling
+- Data type detection
+- Column classification
+- Missing and invalid value analysis
+- Quality, Trust, and Business Value score calculation
+- Dashboard analytics
+- Dataset usage tracking
+- RESTful APIs
+
+---
+
+## Tech Stack
+
+- Node.js
+- Express.js
+- PostgreSQL
+- Prisma ORM
+- Multer
+- csv-parser
+- xlsx
+
+---
+
+## Project Structure
+
+```text
+backend/
+├── prisma/
+│   ├── migrations/
+│   └── schema.prisma
+├── src/
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── routes/
+│   └── app.js
+├── .env
+├── server.js
+├── package.json
+└── README.md
+```
+
+---
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/dashboard/metrics` | Get dashboard metrics |
+| POST | `/api/datasets/upload` | Upload a dataset |
+| GET | `/api/datasets` | Get all datasets |
+| GET | `/api/datasets/:id` | Get dataset details |
+| GET | `/api/datasets/:id/profile` | Get dataset profile |
+| POST | `/api/datasets/:id/usage` | Record dataset usage |
+| POST | `/api/datasets/:id/scores/refresh` | Refresh governance scores |
+| DELETE | `/api/datasets/:id` | Delete dataset |
+
+---
+
+## Installation
+
+### 1. Clone the repository
+
+```bash
+git clone <repository-url>
+cd backend
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+
+Create a `.env` file:
+
+```env
+DATABASE_URL=your_postgresql_connection_string
+PORT=5000
+```
+
+### 4. Generate Prisma Client
+
+```bash
+npx prisma generate
+```
+
+### 5. Run database migrations
+
+```bash
+npx prisma migrate dev
+```
+
+### 6. Start the development server
+
+```bash
+npm run dev
+```
+
+Server runs at:
+
+```text
+http://localhost:5000
+```
+
+---
+
+## Database
+
+### Dataset
+
+Stores uploaded dataset metadata and governance scores.
+
+### DatasetColumn
+
+Stores profiling information for each dataset column.
+
+### DatasetUsage
+
+Stores dataset usage history for analytics.
+
+---
+
+## Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `DATABASE_URL` | PostgreSQL connection string |
+| `PORT` | Application port |

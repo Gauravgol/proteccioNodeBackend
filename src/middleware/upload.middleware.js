@@ -12,7 +12,7 @@ const allowedMimeTypes = new Set([
 const upload = multer({
     storage,
     limits: {
-        fileSize: 10 * 1024 * 1024
+        fileSize: 5 * 1024 * 1024 // 5 MB
     },
     fileFilter: (req, file, cb) => {
         if (allowedMimeTypes.has(file.mimetype) || /\.(csv|xls|xlsx)$/i.test(file.originalname)) {
