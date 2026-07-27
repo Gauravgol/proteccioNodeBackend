@@ -19,14 +19,23 @@ app.get("/", (req, res) => {
         message: "Data Governance API Running"
     });
 });
-app.use("/api",router)
-app.use((err, req, res, next) => {
-    console.error("Multer Error:", err);
+app.use("/api", router);
 
-    res.status(500).json({
+app.use((req, res) => {
+    res.status(404).json({
         success: false,
-        message: err.message,
-        stack: err.stack
+        message: "Route not found"
+    });
+});
+
+app.use((err, req, res, next) => {
+    console.error("Request Error:", err);
+
+    const statusCode = err.name === "MulterError" || err.message?.includes("Only CSV") ? 400 : 500;
+
+    res.status(statusCode).json({
+        success: false,
+        message: err.message
     });
 });
 

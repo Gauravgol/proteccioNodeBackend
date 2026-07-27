@@ -11,6 +11,7 @@ model Dataset {
   id           String   @id @default(cuid())
   filename     String
   fileType     String
+  filePath     String
   rowCount     Int
   columnCount  Int
 
