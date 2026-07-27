@@ -9,7 +9,7 @@ const SUPPORTED_EXTENSIONS = new Set([".csv", ".xlsx", ".xls"]);
 const EMPTY_VALUES = new Set(["", "null", "undefined", "na", "n/a", "none"]);
 
 
-const round = (value, decimals = 2) => {
+export const round = (value, decimals = 2) => {
     if (!Number.isFinite(value)) return 0;
     return Number(value.toFixed(decimals));
 };

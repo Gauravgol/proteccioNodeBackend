@@ -130,3 +130,8 @@ export const recordDatasetUsage = async (req, res) => {
     }
 };
 
+
+export const round = (value, decimals = 2) => {
+    if (!Number.isFinite(value)) return 0;
+    return Number(value.toFixed(decimals));
+};

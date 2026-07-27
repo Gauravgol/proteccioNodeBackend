@@ -3,7 +3,7 @@ import path from "path";
 import csv from "csv-parser";
 import XLSX from "xlsx";
 import prisma from "../config/prisma.js";
-import { parseUploadedFile, buildColumnProfiles, calculateScores, buildDatasetResponse } from "../utils/dataset.utils.js";
+import { parseUploadedFile, buildColumnProfiles, calculateScores, buildDatasetResponse } from "../utils/commonUtils.js"
 
 export const uploadDataset = async (req, res) => {
     try {
